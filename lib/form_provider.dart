@@ -5,19 +5,34 @@ class FormProvider extends ChangeNotifier {
   TextEditingController nameController = TextEditingController();
   TextEditingController locationController = TextEditingController();
   TextEditingController notesController = TextEditingController();
-
-  final List<String> _names = [];
-  List<String> get names => _names;
+  int index = 0;
+  final List<Map<String, String>> _data = [];
+  List<Map<String, String>> get getData => _data;
 
   void deleteInput() {
     nameController.text = "";
     locationController.text = "";
     notesController.text = "";
+    if (checked) checked = !checked;
+    notifyListeners();
   }
 
   void saveInput() {
-    _names.add(nameController.text);
-    print(_names);
+    Map<String, String> dataMap = {
+      'name': '',
+      'location': '',
+      'season': '',
+      'notes': ''
+    };
+    dataMap['name'] = nameController.text;
+    dataMap['location'] = locationController.text;
+    dataMap['season'] =
+        checked ? 'Currently in season' : 'Currently not in season';
+    dataMap['notes'] = notesController.text;
+
+    _data.add(dataMap);
+    // _names.add(nameController.text);
+    deleteInput();
     notifyListeners();
   }
 

@@ -1,28 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:forage/detail.dart';
 import 'package:forage/register.dart';
 import 'package:forage/form_provider.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({
+  HomePage({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     final formProvider = Provider.of<FormProvider>(context);
-    final names = formProvider.names;
     return Scaffold(
       appBar: AppBar(
         title: Text('Forage'),
         backgroundColor: Colors.purple,
       ),
       body: ListView.builder(
-        itemCount: names.length,
+        itemCount: context.watch<FormProvider>().getData.length,
         itemBuilder: (context, index) {
-          final name = names[index];
           return ListTile(
-            title: Text('$name'),
+            title: Text(
+              '${context.watch<FormProvider>().getData[index]['name']}',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+            ),
+            subtitle: Text(
+                '${context.watch<FormProvider>().getData[index]['location']}'),
+            onTap: () {
+              formProvider.index = index;
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => Detail(),
+                ),
+              );
+            },
           );
         },
       ),
@@ -35,10 +47,7 @@ class HomePage extends StatelessWidget {
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => ChangeNotifierProvider(
-                create: (context) => FormProvider(),
-                child: Register(),
-              ),
+              builder: (context) => Register(),
             ),
           );
         },

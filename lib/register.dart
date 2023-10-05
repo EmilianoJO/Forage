@@ -59,7 +59,6 @@ class Register extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    print(formProvider.names);
                     formProvider.saveInput();
                     Navigator.pop(context);
                   },
@@ -69,8 +68,6 @@ class Register extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     formProvider.deleteInput();
-                    if (formProvider.checked)
-                      formProvider.checked = !formProvider.checked;
                   },
                   child: Text("Delete"),
                   style: ElevatedButton.styleFrom(primary: Colors.purple),
