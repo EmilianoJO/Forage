@@ -59,6 +59,7 @@ class Register extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
+                    print(formProvider.names);
                     formProvider.saveInput();
                     Navigator.pop(context);
                   },

@@ -10,27 +10,21 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formProvider = context.watch<FormProvider>();
-    formProvider.UsersList();
+    final formProvider = Provider.of<FormProvider>(context);
+    final names = formProvider.names;
     return Scaffold(
       appBar: AppBar(
         title: Text('Forage'),
         backgroundColor: Colors.purple,
       ),
-      body: Container(
-        height: MediaQuery.of(context).size.height / 2,
-        child: Consumer<FormProvider>(
-          builder: (context, formProvider, child) {
-            // Call UsersList method directly and map the widgets
-            final listTiles = formProvider.UsersList().map((widget) {
-              return widget;
-            }).toList();
-
-            return ListView(
-              children: listTiles,
-            );
-          },
-        ),
+      body: ListView.builder(
+        itemCount: names.length,
+        itemBuilder: (context, index) {
+          final name = names[index];
+          return ListTile(
+            title: Text('$name'),
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.purple,

@@ -10,11 +10,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Forage',
-      home: ChangeNotifierProvider(
-        create: (context) => FormProvider(),
-        child: HomePage(),
+    return ChangeNotifierProvider(
+      create: (context) => FormProvider(),
+      child: MaterialApp(
+        title: 'Forage',
+        home: HomePage(),
       ),
     );
   }
